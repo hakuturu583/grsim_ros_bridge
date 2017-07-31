@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <node name="run_grsim_node" pkg="grsim_ros_bridge" type="run_grsim_node.py" args="" output="screen" respawn="true">
+  </node>
+
+  <node name="grsim_ros_bridge_node" pkg="grsim_ros_bridge" type="grsim_ros_bridge_node.py" args="" output="screen" respawn="true">
+  </node>
+</launch>
