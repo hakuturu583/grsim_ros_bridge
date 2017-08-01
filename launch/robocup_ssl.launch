@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-  <node name="run_grsim_node" pkg="grsim_ros_bridge" type="run_grsim_node.py" args="" output="screen" respawn="true">
-  </node>
+  <group ns="grsim_ros_bridge">
+    <node name="run_grsim_node" pkg="grsim_ros_bridge" type="run_grsim_node.py" args="" output="screen" respawn="true">
+    </node>
 
-  <node name="grsim_ros_bridge_node" pkg="grsim_ros_bridge" type="grsim_ros_bridge_node.py" args="" output="screen" respawn="true">
-  </node>
+    <node name="grsim_ros_bridge_node" pkg="grsim_ros_bridge" type="grsim_ros_bridge_node.py" args="" output="screen" respawn="true">
+    </node>
+
+    <node name="field_map_server" pkg="map_server" type="map_server" args="$(find grsim_ros_bridge)/config/field_map.yaml" output="screen" respawn="false">
+    </node>
+
+    <node name="object_pose_publisher_node" pkg="grsim_ros_bridge" type="object_pose_publisher_node.py" args="" output="screen" respawn="true">
+    </node>
+
+    <node name="marker_publisher_node" pkg="grsim_ros_bridge" type="marker_publisher_node.py" args="" output="screen" respawn="true">
+    </node>
+  </group>
 
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find grsim_ros_bridge)/config/robocup_ssl.rviz" output="screen" respawn="true">
-
   </node>
 </launch>

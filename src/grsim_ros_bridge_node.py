@@ -91,7 +91,7 @@ if __name__ == '__main__':
     #make protobuf instance
     ssl_wrapper = messages_robocup_ssl_wrapper_pb2.SSL_WrapperPacket()
     #make publisher
-    field_objects_pub = rospy.Publisher(rospy.get_name()+'/field_objects', FieldObjects, queue_size=1)
+    field_objects_pub = rospy.Publisher('/field_objects', FieldObjects, queue_size=1)
     field_objects_msg = FieldObjects()
     broadcaster = tf2_ros.TransformBroadcaster()
     while not rospy.is_shutdown():
