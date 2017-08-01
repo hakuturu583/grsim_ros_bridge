@@ -3,7 +3,7 @@
 import  socket
 import  messages_robocup_ssl_wrapper_pb2
 
-multicast_if_addr='10.0.2.15'
+multicast_if_addr='192.168.3.9'
 
 multicast_group='224.5.23.2'
 multicast_port=10020
@@ -23,9 +23,6 @@ ssl_wrapper = messages_robocup_ssl_wrapper_pb2.SSL_WrapperPacket()
 while True:
 
     data    = sock.recv(1024)
-    try:
-        ssl_wrapper.ParseFromString(data)
-        print   '-------------------------------------------'
-        print   ssl_wrapper
-    except:
-        print "Failed to read grsim packet"
+    ssl_wrapper.ParseFromString(data)
+    print   '-------------------------------------------'
+    print   ssl_wrapper

@@ -1,4 +1,4 @@
-std_msgs/Float32 confidence
+float32 confidence
 geometry_msgs/Point point
-std_msgs/Float32 pixel_x
-std_msgs/Float32 pixel_y
+float32 pixel_x
+float32 pixel_y

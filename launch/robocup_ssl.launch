@@ -5,4 +5,8 @@
 
   <node name="grsim_ros_bridge_node" pkg="grsim_ros_bridge" type="grsim_ros_bridge_node.py" args="" output="screen" respawn="true">
   </node>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find grsim_ros_bridge)/config/robocup_ssl.rviz" output="screen" respawn="true">
+
+  </node>
 </launch>
