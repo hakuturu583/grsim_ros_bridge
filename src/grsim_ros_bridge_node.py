@@ -15,12 +15,15 @@ def euler_to_quaternion(euler):
 
 def broadcast_transform(broadcaster,robot_id,team_color,robot_x,robot_y,robot_thata):
     transform_stamped = TransformStamped()
+    #get ros timestamp
     transform_stamped.header.stamp = rospy.Time.now()
     transform_stamped.header.frame_id = "map"
     transform_stamped.child_frame_id = "robot_" + team_color + "_" + str(robot_id) + "_frame"
+    #create translation from robot position
     transform_stamped.transform.translation.x = robot_x
     transform_stamped.transform.translation.y = robot_y
     transform_stamped.transform.translation.z = 0.0
+    #create quaternion from robot position
     q = tf.transformations.quaternion_from_euler(0, 0, robot_thata)
     transform_stamped.transform.rotation.x = q[0]
     transform_stamped.transform.rotation.y = q[1]
@@ -36,6 +39,7 @@ def create_field_objects_message(data,broadcaster):
     msg.time_sent.secs = int(math.floor(float(data.detection.t_sent)))
     msg.time_sent.nsecs = int((float(data.detection.t_sent)-math.floor(float(data.detection.t_sent)))*pow(10,9))
     msg.camera_id = int(data.detection.camera_id)
+    #create ball message
     for ball in data.detection.balls:
         ball_msg = Ball()
         ball_msg.confidence = ball.confidence
@@ -45,6 +49,7 @@ def create_field_objects_message(data,broadcaster):
         ball_msg.pixel_x = float(ball.pixel_x)
         ball_msg.pixel_y = float(ball.pixel_y)
         msg.balls.append(ball_msg)
+    #create blue robot message
     for robot in data.detection.robots_blue:
         robot_msg = Robot()
         robot_msg.team_color = robot_msg.BLUE
@@ -60,6 +65,7 @@ def create_field_objects_message(data,broadcaster):
         robot_msg.robot_pose.orientation.w = quat.w
         broadcast_transform(broadcaster,int(robot.robot_id),"blue",float(robot.x)/1000,float(robot.y)/1000,float(robot.orientation))
         msg.robots.append(robot_msg)
+    #create yellow robot message
     for robot in data.detection.robots_yellow:
         robot_msg = Robot()
         robot_msg.team_color = robot_msg.YELLOW
